@@ -62,7 +62,19 @@ top5_productos = [
     for pid, cantidad in top5
 ]
 
-print("\nKPI 2: ")
+print(f"Total de ventas: ${total_ventas}")
 print("Top 5 productos más vendidos:")
 for p in top5_productos:
-    print(f"{p['producto']}: con {p['cantidad']} unidades vendidas")
+    print(f"- {p['producto']}: {p['cantidad']} unidades")
+
+#cantidad de ordenes por metodo de pago
+metodos_pago = df_ordenes["metodoPago"].value_counts().to_dict()
+
+db.metricas.delete_many({})  # limpiar anteriores
+db.metricas.insert_one({
+    "totalVentas": total_ventas,
+    "ordenesPorMetodoPago": metodos_pago,
+    "top5Productos": top5_productos
+})
+
+print("Metricas insertadas")
