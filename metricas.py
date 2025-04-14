@@ -22,7 +22,7 @@ print("KPI 1: Total de ventas")
 print("Total de ventas: "+ str(total_ventas))
 
 
-# KPI 2: productos más vendidos
+# KPI 2: producto más vendido
 #esta funcion es para limpiar el campo pedido de las ordenes, ya que en la base de datos se guardan como ObjectId y no como string
 def limpiar_objectid(texto):
     return re.sub(r"ObjectId\('([a-fA-F0-9]{24})'\)", r"'\1'", texto)
@@ -55,7 +55,7 @@ for orden in ordenes:
         producto_id = str(item["producto"])
         conteo_productos[producto_id] += item["cantidad"]
 
-# Top 5
+# Top productos
 top5 = conteo_productos.most_common(5)
 top5_productos = [
     {"producto": productos_dict.get(pid, "Desconocido"), "cantidad": cantidad}
@@ -63,7 +63,7 @@ top5_productos = [
 ]
 
 print(f"Total de ventas: ${total_ventas}")
-print("Top 5 productos más vendidos:")
+print("Top productos más vendidos:")
 for p in top5_productos:
     print(f"- {p['producto']}: {p['cantidad']} unidades")
 
